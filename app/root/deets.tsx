@@ -2,8 +2,17 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSQLiteContext } from 'expo-sqlite'
 import { DBEntry } from '@/model/DBEntry';
+import DBAccessContext from '@/components/DBAccessContext';
 
-export default function deets() {
+export default function DeetsWrapper(){
+  return (
+  <DBAccessContext>
+    <Deets />
+  </DBAccessContext>
+  );
+}
+
+function Deets() {
   const db = useSQLiteContext();
   const [items, setItems] = useState<DBEntry[]>([]);
   useEffect(() => {
@@ -13,7 +22,8 @@ export default function deets() {
     };
 
     getData;
-  }, [])
+  }, []);
+
   return (
     <View>
       <Text>This is the deets page</Text>
